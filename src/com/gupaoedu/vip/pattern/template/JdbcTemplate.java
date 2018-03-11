@@ -42,7 +42,7 @@ public class JdbcTemplate {
     }
 
     private List<?> parseResultSet(ResultSet resultSet, RowMapper rowMapper) throws Exception {
-        List<?> result = new ArrayList<?>();
+        List<Object> result = new ArrayList<Object>();
         int rowNumber = 1;
         while (resultSet.next()) {
             rowNumber++;
@@ -51,7 +51,7 @@ public class JdbcTemplate {
         return result;
     }
 
-    public List<Object> executeQuery(String sql, RowMapper<?> rowMapper, Object[] values) {
+    public List<?> executeQuery(String sql, RowMapper<?> rowMapper, Object[] values) {
 
         try {
             //1.获取连接
@@ -64,7 +64,7 @@ public class JdbcTemplate {
             ResultSet resultSet = this.executeQuery(preparedStatement, values);
 
             //4.解析语句集
-            List<?> result = this.parseResultSet();
+            List<?> result = this.parseResultSet(resultSet, rowMapper);
 
             //5.关闭结果集
             this.closeResult(resultSet);
@@ -83,6 +83,6 @@ public class JdbcTemplate {
         return null;
     }
 
-    public Object processResult(ResultSet resultSet, int rowNumber) throws Exception;
+    //public Object processResult(ResultSet resultSet, int rowNumber) throws Exception;
 
 }
